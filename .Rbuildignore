@@ -32,7 +32,6 @@
 ^man/dot-build_query\.Rd$
 ^man/dot-format_dates_ag\.Rd$
 ^man/dot-format_dates_re_sb\.Rd$
-^man/grapes-notin-grapes\.Rd$
 ^man/dot-check_pars\.Rd$
 ^man/dot-is_boolean\.Rd$
 ^man/dot-match_surface_alias\.Rd$

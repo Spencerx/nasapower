@@ -1,17 +1,3 @@
-#' Adds a %notin% Function
-#'
-#' Negates `%in%` for easier (miss)matching.
-#'
-#' @param x A character string to match.
-#' @param table A table containing values to match `x` against.
-#'
-#' @returns A logical vector, indicating if a mismatch was located for any
-#'  element of x: thus the values are `TRUE` or `FALSE` and never `NA`.
-#' @dev
-`%notin%` <- function(x, table) {
-  match(x, table, nomatch = 0L) == 0L
-}
-
 #' Check Pars for Validity When Querying API
 #'
 #' Validates user entered `pars` values against `temporal_api` values.

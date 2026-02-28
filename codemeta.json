@@ -61,11 +61,6 @@
       "givenName": "Gergely",
       "familyName": "Daróczi",
       "email": "daroczig@rapporter.net"
-    },
-    {
-      "@type": "Person",
-      "givenName": "James J.",
-      "familyName": "Balamuta"
     }
   ],
   "copyrightHolder": [
@@ -84,11 +79,12 @@
     {
       "@type": "Organization",
       "name": "Curtin University"
-    },
+    }
+  ],
+  "funder": [
     {
-      "@type": "Person",
-      "givenName": "James J.",
-      "familyName": "Balamuta"
+      "@type": "Organization",
+      "name": "Curtin University"
     }
   ],
   "maintainer": [
@@ -209,6 +205,18 @@
     },
     "4": {
       "@type": "SoftwareApplication",
+      "identifier": "data.table",
+      "name": "data.table",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=data.table"
+    },
+    "5": {
+      "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
       "provider": {
@@ -219,7 +227,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "5": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "readr",
       "name": "readr",
@@ -231,7 +239,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=readr"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -243,7 +251,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "7": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
@@ -256,7 +264,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
     },
-    "8": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "yyjsonr",
       "name": "yyjsonr",
@@ -273,7 +281,7 @@
   "applicationCategory": "Tools",
   "isPartOf": "https://ropensci.org",
   "keywords": ["NASA", "meteorological-data", "weather", "global", "weather", "weather-data", "meteorology", "NASA-POWER", "agroclimatology", "earth-science", "data-access", "climate-data"],
-  "fileSize": "504.938KB",
+  "fileSize": "504.269KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",

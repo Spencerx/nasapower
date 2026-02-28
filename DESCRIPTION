@@ -21,10 +21,8 @@ Authors@R: c(
            comment = "Author of the CRAN package 'rapportools', from which\n             the '.is_boolean()' was taken."),
     person("Gergely", "Daróczi", , "daroczig@rapporter.net", role = c("ctb", "cph"),
            comment = "Author of the CRAN package 'rapportools', from which\n             the '.is_boolean()' was taken."),
-    person("Curtin University", role = "cph",
-           comment = "Supported the development of 'nasapower' through Adam H.\n                Sparks' time."),
-    person("James J.", "Balamuta", role = c("ctb", "cph"),
-           comment = "Author of the GitHub package 'rops', from which the '%notin%' function was taken.")
+    person("Curtin University", role = c("fnd", "cph"),
+           comment = c("http://www.curtin.edu.au/", ROR = "02n415q13"))
   )
 Description: An API client for NASA POWER global meteorology, surface
     solar energy and climatology data API.  POWER (Prediction Of Worldwide
@@ -43,6 +41,7 @@ Depends:
 Imports:
     cli,
     crul,
+    data.table,
     lubridate,
     readr,
     rlang,

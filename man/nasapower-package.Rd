@@ -43,9 +43,7 @@ Other contributors:
  the '.is_boolean()' was taken.) [contributor, copyright holder]
   \item Gergely Daróczi \email{daroczig@rapporter.net} (Author of the CRAN package 'rapportools', from which
  the '.is_boolean()' was taken.) [contributor, copyright holder]
-  \item Curtin University (Supported the development of 'nasapower' through Adam H.
- Sparks' time.) [copyright holder]
-  \item James J. Balamuta (Author of the GitHub package 'rops', from which the '%notin%' function was taken.) [contributor, copyright holder]
+  \item Curtin University (\href{https://ror.org/02n415q13}{ROR}) (http://www.curtin.edu.au/) [funder, copyright holder]
 }
 
 }
