@@ -4,8 +4,8 @@
   "identifier": "nasapower",
   "description": "An API client for NASA POWER global meteorology, surface solar energy and climatology data API. POWER (Prediction Of Worldwide Energy Resources) data are freely available for download with varying spatial resolutions dependent on the original data and with several temporal resolutions depending on the POWER parameter and community. This work is funded through the NASA Earth Science Directorate Applied Science Program. For more on the data themselves, the methodologies used in creating, a web-based data viewer and web access, please see <https://power.larc.nasa.gov/>.",
   "name": "nasapower: NASA POWER API Client",
-  "codeRepository": "https://github.com/ropensci/nasapower",
-  "issueTracker": "https://github.com/ropensci/nasapower/issues",
+  "codeRepository": "https://docs.ropensci.org/nasapower/",
+  "issueTracker": "https://codeberg.org/ropensci/nasapower/issues",
   "license": "https://spdx.org/licenses/MIT",
   "version": "4.2.5.9000",
   "programmingLanguage": {
@@ -13,7 +13,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
+  "runtimePlatform": "R version 4.5.2 (2025-10-31)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -272,8 +272,8 @@
   },
   "applicationCategory": "Tools",
   "isPartOf": "https://ropensci.org",
-  "keywords": ["NASA", "meteorological-data", "weather", "global", "weather-data", "meteorology", "NASA-POWER", "agroclimatology", "earth-science", "data-access", "climate-data", "r", "nasa-power", "nasa", "agroclimatology-data", "weather-variables", "rstats", "r-package"],
-  "fileSize": "505.264KB",
+  "keywords": ["NASA", "meteorological-data", "weather", "global", "weather", "weather-data", "meteorology", "NASA-POWER", "agroclimatology", "earth-science", "data-access", "climate-data"],
+  "fileSize": "504.948KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -302,14 +302,12 @@
       }
     }
   ],
-  "relatedLink": ["https://docs.ropensci.org/nasapower/", "https://CRAN.R-project.org/package=nasapower"],
-  "releaseNotes": "https://github.com/ropensci/nasapower/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/nasapower/blob/main/README.md",
   "contIntegration": ["https://github.com/ropensci/nasapower/actions/workflows/check-standard.yaml", "https://app.codecov.io/gh/ropensci/nasapower"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "review": {
     "@type": "Review",
     "url": "https://github.com/ropensci/software-review/issues/155",
     "provider": "https://ropensci.org"
-  }
+  },
+  "relatedLink": "https://CRAN.R-project.org/package=nasapower"
 }
