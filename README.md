@@ -5,13 +5,11 @@ output: github_document
 # {nasapower}: NASA POWER API Client <img src="man/figures/logo.png" style="float:right;" alt="logo" width="120" />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/ropensci/nasapower/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/ropensci/nasapower/actions/workflows/check-standard.yaml)
 [![DOI](https://zenodo.org/badge/109224461.svg)](https://zenodo.org/badge/latestdoi/109224461) 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) 
 [![peer-review](https://badges.ropensci.org/155_status.svg)](https://github.com/ropensci/software-review/issues/155) 
 [![JOSS](https://joss.theoj.org/papers/10.21105/joss.01035/status.svg)](https://doi.org/10.21105/joss.01035)
 [![CRAN status](https://www.r-pkg.org/badges/version/nasapower)](https://CRAN.R-project.org/package=nasapower)
-[![codecov](https://codecov.io/gh/ropensci/nasapower/graph/badge.svg?token=Kq9aea0TQN)](https://app.codecov.io/gh/ropensci/nasapower)
 <!-- badges: end -->
 
 ## POWER data vs {nasapower}
