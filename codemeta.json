@@ -302,7 +302,6 @@
       }
     }
   ],
-  "contIntegration": ["https://github.com/ropensci/nasapower/actions/workflows/check-standard.yaml", "https://app.codecov.io/gh/ropensci/nasapower"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "review": {
     "@type": "Review",
