@@ -45,12 +45,12 @@ The stable version is available through CRAN.
 install.packages("nasapower")
 ```
 
-#### From GitHub for the version in-development
 
-A development version is available through GitHub.
+#### From R-Universe
 
+A development version is available through R-Universe if you prefer.
 
-``` r
+```r
 install.packages("nasapower", repos = "https://ropensci.r-universe.dev")
 ```
 
