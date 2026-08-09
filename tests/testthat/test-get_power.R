@@ -13,7 +13,7 @@ test_that("get_power() returns daily point ag data", {
         "WS10M",
         "PS"
       ),
-      dates = c("1983-01-01"),
+      dates = "1983-01-01",
       temporal_api = "Daily",
       time_standard = "UTC"
     )
@@ -68,7 +68,7 @@ test_that("get_power() returns daily point ag data with adjusted atmospheric
         "WS10M",
         "PS"
       ),
-      dates = c("1983-01-01"),
+      dates = "1983-01-01",
       temporal_api = "Daily",
       site_elevation = 0,
       time_standard = "UTC"
@@ -126,7 +126,7 @@ test_that("get_power() returns daily point ag data with adjusted wind
         "WS10M",
         "PS"
       ),
-      dates = c("1983-01-01"),
+      dates = "1983-01-01",
       temporal_api = "Daily",
       wind_elevation = 300,
       wind_surface = "vegtype_1",
@@ -184,7 +184,7 @@ test_that("get_power() returns daily point SB data", {
         "RH2M",
         "WS10M"
       ),
-      dates = c("1983-01-01"),
+      dates = "1983-01-01",
       temporal_api = "Daily",
       time_standard = "UTC"
     )
@@ -218,7 +218,7 @@ test_that("get_power() returns daily point SB data for LST", {
         "RH2M",
         "WS10M"
       ),
-      dates = c("1983-01-01"),
+      dates = "1983-01-01",
       temporal_api = "Daily",
       time_standard = "LST"
     )
@@ -245,7 +245,7 @@ test_that("get_power() returns daily regional ag data", {
     community = "ag",
     lonlat = c(112.5, -55.5, 115.5, -50.5),
     pars = "T2M",
-    dates = c("1983-01-01"),
+    dates = "1983-01-01",
     temporal_api = "Daily"
   )
 
@@ -288,7 +288,7 @@ test_that("get_power() returns point ag data for climatology", {
       community = "ag",
       pars = "T2M",
       temporal_api = "climatology",
-      lonlat = c(-179.5, -89.5),
+      lonlat = c(-179.5, -89.5)
     )
   })
 
@@ -546,13 +546,10 @@ test_that("Only 20 pars are allowed when `temporal_api` != climatology", {
 test_that("get_power() stops if lonlat = regional for hourly", {
   skip_if_offline()
   expect_error(
-    power_query <- get_power(
-      community = "ag",
-      lonlat = c(112.5, -55.5, 115.5, -50.5),
-      pars = "T2M",
-      dates = c("1983-01-01"),
-      temporal_api = "hourly"
-    )
+    lonlat = c(112.5, -55.5, 115.5, -50.5),
+    pars = "T2M",
+    dates = "1983-01-01",
+    temporal_api = "hourly"
   )
 })
 

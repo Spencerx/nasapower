@@ -120,7 +120,7 @@ test_that("If temporal_api == monthly and dates are specified, that only years
 
 test_that("If temporal_api == monthly and <2 dates provided, error", {
   temporal_api <- "monthly"
-  dates <- c("1983-01-01")
+  dates <- "1983-01-01"
   lonlat <- c(-179.5, -89.5)
   site_elevation <- NULL
   expect_error(.check_dates(dates, lonlat, temporal_api))
@@ -258,8 +258,7 @@ test_that(".check_lonlat() checks validity of bbox lonmin values", {
   temporal_api <- "daily"
   expect_error(
     .check_lonlat(
-      lonlat = c(-181.5, 89.5, -179.5, 89.5),
-      pars
+      lonlat = c(-181.5, 89.5, -179.5, 89.5)
     ),
     regexp = "Please check your longitude*"
   )
@@ -269,8 +268,7 @@ test_that(".check_lonlat() checks validity of bbox lonmax values", {
   temporal_api <- "daily"
   expect_error(
     .check_lonlat(
-      lonlat = c(-179.5, 89.5, 181, 89.5),
-      pars
+      lonlat = c(-179.5, 89.5, 181, 89.5)
     ),
     regexp = "Please check your longitude*"
   )
@@ -285,8 +283,7 @@ test_that(".check_lonlat() returns message with proper identifier when valid
       88.5,
       -179.5,
       89.5
-    ),
-    pars
+    )
   )
   expect_named(test$bbox, c("xmin", "ymin", "xmax", "ymax"))
   expect_identical(test$identifier, "regional")
@@ -402,8 +399,7 @@ test_that(".build_query assembles a proper query for single point and != NULL
     temporal_api
   )
   lonlat_identifier <- .check_lonlat(
-    lonlat,
-    pars
+    lonlat
   )
   user_agent <- "nasapower"
 
@@ -459,8 +455,7 @@ test_that(".build_query assembles a proper query for single point and NULL
     temporal_api
   )
   lonlat_identifier <- .check_lonlat(
-    lonlat,
-    pars
+    lonlat
   )
   user_agent <- "nasapower"
 
@@ -513,8 +508,7 @@ test_that(".build_query assembles a proper query for regional and != NULL
     temporal_api
   )
   lonlat_identifier <- .check_lonlat(
-    lonlat,
-    pars
+    lonlat
   )
   user_agent <- "nasapower"
 
@@ -566,8 +560,7 @@ test_that(".build_query assembles a proper query for regional and NULL dates", {
     temporal_api
   )
   lonlat_identifier <- .check_lonlat(
-    lonlat,
-    pars
+    lonlat
   )
   user_agent <- "nasapower"
   time_standard <- "UTC"

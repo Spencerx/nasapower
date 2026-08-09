@@ -1,7 +1,9 @@
 webmockr::enable("crul")
-withr::defer(webmockr::disable("crul"), teardown_env())
+withr::defer(webmockr::disable("crul"))
 
-clear_stubs <- function() webmockr::stub_registry_clear()
+clear_stubs <- function() {
+  webmockr::stub_registry_clear()
+}
 
 stub_get <- function(uri, body, status = 200L) {
   webmockr::stub_request("get", uri = uri) |>
