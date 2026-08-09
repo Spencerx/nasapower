@@ -1,3 +1,20 @@
+# nasapower (development version)
+
+## Bug fixes
+
+- Fixed `.match_surface_alias()` so it validates against the actual surface alias values instead of `names()` of an unnamed vector, which caused every `wind_surface` argument to `get_power()` and every `surface_alias` argument to `query_surfaces()` to be rejected as invalid, even when correct.
+- Fixed `query_groupings(global = TRUE)` and `query_surfaces()` building the wrong request URL.
+  `crul::url_build()`'s `path` argument replaces an existing URL path rather than appending to it, so these functions were silently querying `https://power.larc.nasa.gov/global` and `https://power.larc.nasa.gov/<surface>` instead of the correct `.../api/system/manager/system/groupings/global` and `.../api/system/manager/surface/<surface>` endpoints (#XX).
+- `print.POWER.Info()` no longer passes server-returned metadata text through `cli::cli_text()`/`cli::cli_h1()`, which could error if that text ever contained a stray `{` or `}` (glue interpolation syntax).
+  Metadata is now printed verbatim with `cli::cli_verbatim()`.
+- `.handle_http_response()` now falls back to a generic message when an API error response has no `message` field, instead of surfacing a blank/`NULL` error detail.
+
+## Internal changes
+
+- `.send_query()` and `.send_mgmt_query()` now share a single internal `.send_request()` implementation instead of duplicating the HTTP client setup, reducing duplicated code.
+- Removed a redundant `!.is_boolean()` check from `.get_timeout()`, `.get_timeout_connect()`, and `.get_max_tries()`; `is.numeric()` already excludes logical values, so the extra check had no effect.
+- Removed a redundant `toupper()` call in `query_parameters()`; parameter case normalisation is already handled inside `.check_pars()`.
+
 # nasapower 4.3.0
 
 ## Bug fixes
@@ -8,7 +25,7 @@
 ### get_power()
 
 - Added `temporal_api = "daily"` default to the function signature
-- Parse `response$parse("UTF-8")` once into raw, then pass raw to both `read_lines()` and `read_csv()` — no double network/parse cost
+- Parse `response$parse("UTF-8")` once into raw, then pass raw to both `read_lines()` and `read_csv()` --- no double network/parse cost
 - Extracted header delimiter strings into named constants (header_begin, header_end)
 - Fixed `||` precedence bug: `temporal_api == "daily" && (... == "re" || ... == "sb")` now correctly requires daily for both communities
 - Now captures the return value of `.check_inputs()` and updates site_elevation/wind_elevation from it
@@ -23,7 +40,7 @@
 
 - Added an explicit `return(dates)` at the end so the climatology path returns `NULL` visibly rather than falling off the function silently
 
-## Minor changes 
+## Minor changes
 
 - Add user-facing settings to change download options, for *e.g.*, change the timeout for the API connection to 60 seconds, `options(nasapower.timeout = 60L)`.
 
@@ -37,8 +54,7 @@
 
 ## Bug fixes
 
-- Fixes bug where `pars` that are not valid returned a cryptic error message as
-  seen here, <https://stackoverflow.com/questions/78416035/issue-with-nasapower-r-library>
+- Fixes bug where `pars` that are not valid returned a cryptic error message as seen here, <https://stackoverflow.com/questions/78416035/issue-with-nasapower-r-library>
 
 # nasapower 4.2.3
 
@@ -84,7 +100,7 @@
 - Error, warning and other informational messages are now all formatted with {cli} for more attractive and informative messages.
 
 - The username passed along to the POWER API is now "nasapower4r" to support other packages built on {nasapower} that could use {vcr} in tests.
-  Previously the user agent string took the version of {nasapower} and appended it, _e.g._, "nasapower410" for v4.1.0.
+  Previously the user agent string took the version of {nasapower} and appended it, *e.g.*, "nasapower410" for v4.1.0.
   Doing so breaks tests in packages relying on {nasapower} due to incompatibilities in cassettes, while not affecting functionality.
 
 ## Bug fixes
@@ -128,7 +144,7 @@
 
 - Reorder README to stress that this is not the data source and should not be cited as such.
 
-- Tidy up minor bits-n-pieces in documentation to make it nicer, _e.g._, grammar corrections, using `\dQuote{}` rather than """ in ROxygen.
+- Tidy up minor bits-n-pieces in documentation to make it nicer, *e.g.*, grammar corrections, using `\dQuote{}` rather than """ in ROxygen.
 
 - Uses `sprintf()` rather than `paste()` where possible.
 
@@ -136,7 +152,7 @@
 
 # nasapower 4.0.10
 
-- Update CITATION file to follow CRAN's ~ever-changing whims~ guidelines.
+- Update CITATION file to follow CRAN's \~ever-changing whims\~ guidelines.
 
 # nasapower 4.0.9
 
@@ -184,15 +200,16 @@
 
 ## Bug fixes
 
-- Fixes message when importing data using _vroom_ >= 1.5.0, `The`file`argument of`vroom()`must use`I()`for literal data as of vroom 1.5.0.`. Thanks to @palderman for the fix in [Pull Request 67](https://github.com/ropensci/nasapower/pull/67).
+- Fixes message when importing data using *vroom* >= 1.5.0, `The`file`argument of`vroom()`must use`I()`for literal data as of vroom 1.5.0.`.
+  Thanks to @palderman for the fix in [Pull Request 67](https://github.com/ropensci/nasapower/pull/67).
 
 ## Minor changes
 
-- Sets minimum version of _tibble_ necessary for use with _nasapower_.
+- Sets minimum version of *tibble* necessary for use with *nasapower*.
 
 # nasapower 4.0.3
 
-- Fixes tests that should use _vcr_ or be skipped on CRAN.
+- Fixes tests that should use *vcr* or be skipped on CRAN.
 
 # nasapower 4.0.2
 
@@ -202,8 +219,8 @@
 
 - The list of POWER parameters that can be queried from the API, `parameters`, is now in alphabetical order.
 
-- Add paragraph to vignette describing how to work with possible rate limiting by API endpoints using _ratelimitr_.
-  This is in place of internally rate-limiting due to the way _ratelimitr_ handles function creation and the fact that the rate limits are extremely generous and may change as the project matures.
+- Add paragraph to vignette describing how to work with possible rate limiting by API endpoints using *ratelimitr*.
+  This is in place of internally rate-limiting due to the way *ratelimitr* handles function creation and the fact that the rate limits are extremely generous and may change as the project matures.
 
 # nasapower 4.0.1 (unreleased on CRAN)
 
@@ -215,9 +232,9 @@
 ## Minor changes
 
 - Enforces API limits client-side where the API limits unique queries to 30 per 60 seconds as found and reported by [@camwur](https://github.com/camwur) in [Issue 57](https://github.com/ropensci/nasapower/issues/57).
-  This can be adjusted in future releases of _nasapower_ if the POWER API changes as has been indicated is possible.
+  This can be adjusted in future releases of *nasapower* if the POWER API changes as has been indicated is possible.
 
-- (Re)enables _vcr_ for better unit testing.
+- (Re)enables *vcr* for better unit testing.
 
 - More comprehensive unit tests.
 
@@ -229,7 +246,7 @@
   See <https://power.larc.nasa.gov/> for fully detailed changes to the data.
 
 - Drops support for the deprecated NASA POWER API V1.0.
-  Previous versions of _nasapower_ are no longer functional.
+  Previous versions of *nasapower* are no longer functional.
 
 - Adds new function, `query_parameters()` to fetch information from the API on individual and all available community/temporal API combination parameters.
 
@@ -263,7 +280,7 @@
 
 ## Major Changes to Functionality
 
-- Due to the removal of the CRAN package _APSIM_ from CRAN, the removal of the `create_met()` function has been implemented sooner than expected to keep _nasapower_ on CRAN.
+- Due to the removal of the CRAN package *APSIM* from CRAN, the removal of the `create_met()` function has been implemented sooner than expected to keep *nasapower* on CRAN.
 
 - Deprecates `create_met()`
 
@@ -282,8 +299,8 @@
 ## Major Changes to Functionality
 
 - Following a UNIX-like philosophy, this release removes functionality to write APSIM .met and DSSAT ICASA files to disk.
-  _nasapower_ now will only fetch the appropriate data and return a `tibble()` object in-session, please use [apsimx](https://cran.r-project.org/package=apsimx) or the POWER web API data access viewer, <https://power.larc.nasa.gov/data-access-viewer/>, for fetching and/or writing .met or .icasa files, respectively.
-  Note that `create_icasa()` ideally should have been deprecated, but the server was not responding properly when queried for some time before the current release of _nasapower_ so the function has been removed.
+  *nasapower* now will only fetch the appropriate data and return a `tibble()` object in-session, please use [apsimx](https://cran.r-project.org/package=apsimx) or the POWER web API data access viewer, <https://power.larc.nasa.gov/data-access-viewer/>, for fetching and/or writing .met or .icasa files, respectively.
+  Note that `create_icasa()` ideally should have been deprecated, but the server was not responding properly when queried for some time before the current release of *nasapower* so the function has been removed.
 
 - Add ability to `get_power()` to accept a user-provided `site_elevation` parameter that is passed to the API.
   When this is used it will return a corrected atmospheric pressure value adjusted to the elevation provided.
@@ -292,11 +309,11 @@
 
 - Use newest values from POWER team to validate user inputs for API requests, see <https://github.com/ropensci/nasapower/issues/48> for more.
 
-- Replace _raster_ with _terra_ for examples of converting to spatial data in vignettes
+- Replace *raster* with *terra* for examples of converting to spatial data in vignettes
 
-- Use _vcr_ for enhanced testing
+- Use *vcr* for enhanced testing
 
-- Refactor the internal handling of temporary files to allow for more efficient use of the _future_ package
+- Refactor the internal handling of temporary files to allow for more efficient use of the *future* package
 
 # nasapower 1.1.3
 
@@ -349,7 +366,8 @@
 
 ## Major changes
 
-- Change how `GLOBAL` values are requested. This is now specified in `lonlat` in conjunction with `temporal_average = CLIMATOLOGY`.
+- Change how `GLOBAL` values are requested.
+  This is now specified in `lonlat` in conjunction with `temporal_average = CLIMATOLOGY`.
 
 ## Minor changes
 
@@ -443,7 +461,7 @@
 
 ## Major changes
 
-- _nasapower_ is now a part of [rOpenSci](https://ropensci.org/) after [peer-review of the code](https://github.com/ropensci/software-review/issues/155)!
+- *nasapower* is now a part of [rOpenSci](https://ropensci.org/) after [peer-review of the code](https://github.com/ropensci/software-review/issues/155)!
 
 - Provides access to all three communities, AG, SSE and and SB, not just AG
 
@@ -455,7 +473,7 @@
 
 - Adds function `create_icasa()` to create a text file of weather data for use in 'DSSAT' crop modelling
 
-- Internally, replaces _httr_ package with _crul_
+- Internally, replaces *httr* package with *crul*
 
 ## Deprecated functions
 
@@ -468,7 +486,8 @@
 
 ## Bug Fixes
 
-- Fixes bug related to date columns where `MONTH`, `DAY` and `YYYY-MM-DD` were incorrectly reported in final data frame. This did not affect the weather data, `YEAR` or `DOY` columns.
+- Fixes bug related to date columns where `MONTH`, `DAY` and `YYYY-MM-DD` were incorrectly reported in final data frame.
+  This did not affect the weather data, `YEAR` or `DOY` columns.
 
 # nasapower 0.1.3
 
@@ -488,11 +507,9 @@
 
 - NEWS now formatted more nicely for easier reading
 
-- Add statement about possible performance and memory usage when using
-  `get_region()` in the vignette
+- Add statement about possible performance and memory usage when using `get_region()` in the vignette
 
-- Add an example of converting the data frame to a spatial object using
-  _raster_ to create a `raster::brick()`
+- Add an example of converting the data frame to a spatial object using *raster* to create a `raster::brick()`
 
 - Specify in documentation that a range of days to years can be specified for download
 
@@ -500,13 +517,15 @@
 
 - `get_region()` and `get_cell()` now default to download all weather vars
 
-- Add a check to see if POWER website is responding before making request for data. If not, stop and return error message to user.
+- Add a check to see if POWER website is responding before making request for data.
+  If not, stop and return error message to user.
 
 # nasapower 0.1.2
 
 ## Bug fixes
 
-- Fixes bug where only first date is reported when using `get_region()` with multiple dates. <https://github.com/ropensci/nasapower/issues/1>
+- Fixes bug where only first date is reported when using `get_region()` with multiple dates.
+  <https://github.com/ropensci/nasapower/issues/1>
 
 ### Minor improvements
 
