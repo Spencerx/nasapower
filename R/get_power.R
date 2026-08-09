@@ -291,7 +291,7 @@ get_power <- function(
     grep(header_begin, power_lines):grep(header_end, power_lines)
   )]
   # strip BEGIN/END HEADER lines
-  meta <- meta[-c(1L, max(length(meta)))]
+  meta <- meta[-c(1L, length(meta))]
 
   # replace missing values with NA in metadata header
   for (i in c("-999", "-99", "-99.00")) {
@@ -725,7 +725,7 @@ get_power <- function(
         cli::cli_abort(
           call = rlang::caller_env(),
           c(
-            i. = "Please provide correct bounding box values. The bounding box
+            i = "Please provide correct bounding box values. The bounding box
             can only enclose a max of 10 x 10 region of 0.5 degree values or a
             5 x 5 region of 1 degree values, ({.emph i.e.}, 100 points total)."
           )

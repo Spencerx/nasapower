@@ -26,6 +26,10 @@
       }
     )
 
+    if (is.null(mssg) || !length(mssg)) {
+      mssg <- "No further detail was returned by the API."
+    }
+
     x <- response$status_http()
 
     cli::cli_abort(
@@ -141,15 +145,45 @@
     return(NULL)
   }
   x_lower <- tolower(x)
-  if (!x_lower %in% tolower(names(.VALID_SURFACE_ALIASES))) {
+  if (!x_lower %in% .VALID_SURFACE_ALIASES) {
     cli::cli_abort(
       c(
         x = "{.val {x}} is not a valid surface alias.",
-        i = "Valid options are: {.val {names(.VALID_SURFACE_ALIASES)}}"
+        i = "Valid options are: {.val {.VALID_SURFACE_ALIASES}}"
       )
     )
   }
   x_lower
+}
+
+#' Send a GET Request to a POWER API Endpoint
+#'
+#' Shared implementation behind [.send_query()] and [.send_mgmt_query()].
+#' Creates the HTTP client, issues the GET request with the package's
+#' configured timeout/retry options, and passes the response through
+#' [.handle_http_response()].
+#'
+#' @param .url A character string of the URL to be used for the API query.
+#' @param .query_list A query list created by [.build_query()], or `NULL`
+#'   for endpoints that do not accept query parameters.
+#'
+#' @returns The HTTP response object from the POWER server containing either
+#'   an error message or the requested data.
+#'
+#' @dev
+.send_request <- function(.url, .query_list = NULL) {
+  client <- crul::HttpClient$new(url = .url)
+
+  # nocov begin
+  response <- client$get(
+    query = .query_list,
+    retry = .get_max_tries(),
+    timeout = .get_timeout(),
+    timeout_connect = .get_timeout_connect()
+  )
+  # nocov end
+
+  .handle_http_response(response)
 }
 
 #' Send Query to POWER Data API
@@ -164,18 +198,7 @@
 #'
 #' @dev
 .send_query <- function(.query_list, .url) {
-  client <- crul::HttpClient$new(url = .url)
-
-  # nocov begin
-  response <- client$get(
-    query = .query_list,
-    retry = .get_max_tries(),
-    timeout = .get_timeout(),
-    timeout_connect = .get_timeout_connect()
-  )
-  # nocov end
-
-  .handle_http_response(response)
+  .send_request(.url = .url, .query_list = .query_list)
 }
 
 #' Send Query to POWER Management API
@@ -191,15 +214,5 @@
 #'
 #' @dev
 .send_mgmt_query <- function(.url) {
-  client <- crul::HttpClient$new(url = .url)
-
-  # nocov begin
-  response <- client$get(
-    retry = .get_max_tries(),
-    timeout = .get_timeout(),
-    timeout_connect = .get_timeout_connect()
-  )
-  # nocov end
-
-  .handle_http_response(response)
+  .send_request(.url = .url)
 }

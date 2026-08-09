@@ -17,7 +17,7 @@
 #' @dev
 .get_timeout <- function() {
   val <- getOption("nasapower.timeout", default = 10L)
-  if (!.is_boolean(val) && is.numeric(val) && length(val) == 1L && val > 0) {
+  if (is.numeric(val) && length(val) == 1L && val > 0) {
     return(as.integer(val))
   }
   cli::cli_warn(
@@ -28,7 +28,6 @@
   )
   10L
 }
-
 #' Get Connection Timeout Option
 #'
 #' Retrieves the connection timeout value for POWER API requests from the
@@ -48,7 +47,7 @@
 #' @dev
 .get_timeout_connect <- function() {
   val <- getOption("nasapower.timeout.connect", default = 5L)
-  if (!.is_boolean(val) && is.numeric(val) && length(val) == 1L && val > 0) {
+  if (is.numeric(val) && length(val) == 1L && val > 0) {
     return(as.integer(val))
   }
   cli::cli_warn(
@@ -59,7 +58,6 @@
   )
   5L
 }
-
 #' Get Max Tries Option
 #'
 #' Retrieves the maximum number of request attempts for POWER API requests
@@ -79,7 +77,7 @@
 #' @dev
 .get_max_tries <- function() {
   val <- getOption("nasapower.max_tries", default = 6L)
-  if (!.is_boolean(val) && is.numeric(val) && length(val) == 1L && val >= 1) {
+  if (is.numeric(val) && length(val) == 1L && val >= 1) {
     return(as.integer(val))
   }
   cli::cli_warn(

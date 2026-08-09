@@ -32,6 +32,7 @@
 ^man/dot-check_pars\.Rd$
 ^man/dot-is_boolean\.Rd$
 ^man/dot-match_surface_alias\.Rd$
+^man/dot-send_request\.Rd$
 ^man/dot-send_query\.Rd$
 ^man/dot-send_mgmt_query\.Rd$
 ^man/dot-get_timeout\.Rd$
