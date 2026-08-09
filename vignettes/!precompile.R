@@ -9,7 +9,7 @@ knit("vignettes/nasapower.Rmd.orig", "vignettes/nasapower.Rmd")
 
 # remove file path such that vignettes will build with figures
 replace <- readLines("vignettes/nasapower.Rmd")
-replace <- gsub("<img src=\"vignettes/", "<img src=\"", replace)
+replace <- gsub("<img src=\"vignettes/", "<img src=\"", replace, fixed = TRUE)
 fileConn <- file("vignettes/nasapower.Rmd")
 writeLines(replace, fileConn)
 close(fileConn)
