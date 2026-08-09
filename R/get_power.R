@@ -79,7 +79,7 @@
 #'    monthly average, maximum, and/or minimum values.}
 #'  }
 #'
-#' @section Argument details for `lonlat`:
+#' @section Argument details for \code{lonlat}:
 #' \describe{
 #'  \item{For a single point}{To get a specific cell, 1/2 x 1/2 degree, supply
 #'  a length-two numeric vector giving the decimal degree longitude and
@@ -98,16 +98,18 @@
 #'  `temporal_api`.}
 #' }
 #'
-#' @section Argument details for `dates`: if one date only is provided, it
+#' @section Argument details for \code{dates}: if one date only is provided, it
 #'   will be treated as both the start date and the end date and only a single
 #'   day's values will be returned, _e.g._, `dates = "1983-01-01"`.  When
 #'   `temporal_api` is set to \dQuote{MONTHLY}, use only two year values (YYYY),
 #'   _e.g._ `dates = c(1983, 2010)`.  This argument should not be used when
 #'   `temporal_api` is set to \dQuote{climatology} and will be ignored if set.
 #'
-#' @section `wind_surface`: There are 17 surfaces that may be used for corrected
+#' @section \code{wind_surface}: There are 17 surfaces that may be used for corrected
 #'   wind-speed values using the following equation:
-#'   \deqn{ WSC_hgt = WS_10 m\times(\frac{hgt}{WS_50m})^\alpha}{WSC_hgt = WS_10 m*(hgt/WS_50m)^\alpha }
+#'   \deqn{WSC_{hgt} = WS_{10m} \times
+#'     (\frac{hgt}{WS_{50m}})^\alpha}{WSC_{hgt} = WS_{10m} *
+#'     (hgt/WS_{50m})^\alpha}
 #'   Valid surface types are described here.
 #'
 #' \describe{
@@ -116,13 +118,13 @@
 #'   \item{vegtype_3}{20-m broadleaf and needleleaf trees (75% coverage)}
 #'   \item{vegtype_4}{17-m needleleaf-evergreen trees (75% coverage)}
 #'   \item{vegtype_5}{14-m needleleaf-deciduous trees (50% coverage)}
-#'   \item{vegtype_6}{Savanna:18-m broadleaf trees (30%) & groundcover}
+#'   \item{vegtype_6}{Savanna:18-m broadleaf trees (30%) && groundcover}
 #'   \item{vegtype_7}{0.6-m perennial groundcover (100%)}
-#'   \item{vegtype_8}{0.5-m broadleaf shrubs (variable %) & groundcover}
+#'   \item{vegtype_8}{0.5-m broadleaf shrubs (variable %) && groundcover}
 #'   \item{vegtype_9}{0.5-m broadleaf shrubs (10%) with bare soil}
-#'   \item{vegtype_10}{Tundra: 0.6-m trees/shrubs (variable %) & groundcover}
+#'   \item{vegtype_10}{Tundra: 0.6-m trees/shrubs (variable %) && groundcover}
 #'   \item{vegtype_11}{Rough bare soil}
-#'   \item{vegtype_12}{Crop: 20-m broadleaf-deciduous trees (10%) & wheat}
+#'   \item{vegtype_12}{Crop: 20-m broadleaf-deciduous trees (10%) && wheat}
 #'   \item{vegtype_20}{Rough glacial snow/ice}
 #'   \item{seaice}{Smooth sea ice}
 #'   \item{openwater}{Open water}
@@ -249,7 +251,7 @@ get_power <- function(
     community = community,
     temporal_api = temporal_api
   )
-  lonlat_identifier <- .check_lonlat(lonlat, pars)
+  lonlat_identifier <- .check_lonlat(lonlat)
   dates <- .check_dates(dates, lonlat, temporal_api)
 
   # submit query ---------------------------------------------------------------
@@ -362,7 +364,7 @@ get_power <- function(
 #' @returns Validated dates in a list for use in `.build_query`.
 #' @dev
 .check_dates <- function(dates, lonlat, temporal_api) {
-  if (is.null(dates) & temporal_api != "climatology") {
+  if (is.null(dates) && temporal_api != "climatology") {
     cli::cli_abort(
       c(i = "You have not entered dates for the query."),
       call = rlang::caller_env()
@@ -409,10 +411,11 @@ get_power <- function(
     dates <- as.list(dates)
 
     # check dates as entered by user
+
     date_format <- function(x) {
-      rlang::try_fetch(
+      parsed_date <- rlang::try_fetch(
         # try to parse the date format using lubridate
-        x <- lubridate::parse_date_time(
+        lubridate::parse_date_time(
           x,
           c(
             "Ymd",
@@ -430,12 +433,13 @@ get_power <- function(
             c(
               i = "{.var {x}} is not a valid entry for a date value.",
               x = "Enter as 'YYYY-MM-DD' (ISO8601 format) and check that it
-                is a valid date."
+            is a valid date."
             )
           )
         }
       )
-      as.Date(x)
+
+      as.Date(parsed_date)
     }
 
     # apply function to reformat/check dates
@@ -463,7 +467,7 @@ get_power <- function(
         )
       )
     } else if (
-      temporal_api == "hourly" &
+      temporal_api == "hourly" &&
         dates[[1L]] < "2001-01-01"
     ) {
       cli::cli_abort(
@@ -582,7 +586,10 @@ get_power <- function(
     cli::cli_abort(
       c(
         x = "You have provided more than one parameter for a regional request.",
-        i = "The latest version of the API does not allow more than one parameter for regional requests.",
+        i = paste(
+          "The latest version of the API does not allow more than one",
+          "parameter for regional requests."
+        ),
         "Please provide only one parameter for a regional request."
       ),
       call = rlang::caller_env()
@@ -646,7 +653,7 @@ get_power <- function(
         x = "A maximum of 15 parameters can currently be requested in one
         submission for hourly data.",
         i = "You have submitted {.val {length(pars)}}"
-      ),
+      )
     )
   } else if (length(pars) > 20L) {
     cli::cli_abort(
@@ -659,23 +666,24 @@ get_power <- function(
     )
   }
 
-  return(list(site_elevation = site_elevation, wind_elevation = wind_elevation))
+  return(list(
+    site_elevation = site_elevation,
+    wind_elevation = wind_elevation
+  ))
 }
 
 #' Check user-supplied `lonlat` for validity when querying API
 #'
-#' Validates user entered `lonlat` values and checks against `pars`
-#' values.
+#' Validates user-entered `lonlat` values.
 #'
 #' @param lonlat User entered `lonlat` value.
-#' @param pars User entered `pars` value.
 #'
 #' @returns A list called `lonlat_identifier` for use in [.build_query()].
 #' @dev
 .check_lonlat <-
-  function(lonlat, pars) {
+  function(lonlat) {
     bbox <- NULL
-    if (is.character(lonlat) & length(lonlat) == 1L) {
+    if (is.character(lonlat) && length(lonlat) == 1L) {
       if (lonlat == "global") {
         identifier <- "global"
       } else if (is.character(lonlat)) {
@@ -684,8 +692,8 @@ get_power <- function(
           c(i = "You have entered an invalid request for `lonlat`.")
         )
       }
-    } else if (is.numeric(lonlat) & length(lonlat) == 2L) {
-      if (lonlat[1] < -180L | lonlat[1L] > 180L) {
+    } else if (is.numeric(lonlat) && length(lonlat) == 2L) {
+      if (lonlat[1] < -180L || lonlat[1L] > 180L) {
         cli::cli_abort(
           call = rlang::caller_env(),
           c(
@@ -695,21 +703,21 @@ get_power <- function(
         )
       }
       if (
-        lonlat[2L] < -90L |
+        lonlat[2L] < -90L ||
           lonlat[2L] > 90L
       ) {
         cli::cli_abort(
           call = rlang::caller_env(),
           c(
             i = "Please check your latitude, {.val {lonlat[2]}},
-          value to be sure it is valid."
+          to be sure it is valid."
           )
         )
       }
       identifier <- "point"
       longitude <- lonlat[1L]
       latitude <- lonlat[2L]
-    } else if (length(lonlat) == 4L & is.numeric(lonlat)) {
+    } else if (length(lonlat) == 4L && is.numeric(lonlat)) {
       if (
         (lonlat[[3L]] - lonlat[[1L]]) * (lonlat[[4L]] - lonlat[[2L]]) * 4L >
           100L
@@ -807,6 +815,7 @@ get_power <- function(
 #' @param site_elevation A validated value passed by `check_inputs`.
 #' @param wind_elevation A validated value passed by `check_inputs`.
 #' @param wind_surface A validated value passed by `check_inputs`.
+#' @param time_standard A validated POWER time standard (`LST` or `UTC`).
 #' @returns A `list` object of values to be passed to a \CRANpkg{crul} object to
 #'  query the 'POWER' 'API'.
 #' @dev

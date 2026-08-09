@@ -24,7 +24,7 @@ query_surfaces <- function(surface_alias = NULL) {
 
   if (!is.null(surface_alias)) {
     wind_surface <- .match_surface_alias(surface_alias)
-    power_url <- paste0(power_url, "/", wind_surface)
+    power_url <- crul::url_build(power_url, wind_surface)
   }
 
   response <- .send_mgmt_query(.url = power_url)

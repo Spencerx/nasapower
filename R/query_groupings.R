@@ -32,7 +32,7 @@ query_groupings <- function(global = FALSE) {
   power_url <- "https://power.larc.nasa.gov/api/system/manager/system/groupings"
 
   if (isTRUE(global)) {
-    power_url <- paste0(power_url, "/global")
+    power_url <- crul::url_build(power_url, "/global")
   }
 
   response <- .send_mgmt_query(.url = power_url)

@@ -121,3 +121,4 @@ query_parameters <- function(
 
   yyjsonr::read_json_raw(response$content)
 }
+
