@@ -4,18 +4,15 @@
 \alias{.check_lonlat}
 \title{Check user-supplied \code{lonlat} for validity when querying API}
 \usage{
-.check_lonlat(lonlat, pars)
+.check_lonlat(lonlat)
 }
 \arguments{
 \item{lonlat}{User entered \code{lonlat} value.}
-
-\item{pars}{User entered \code{pars} value.}
 }
 \value{
 A list called \code{lonlat_identifier} for use in \code{\link[=.build_query]{.build_query()}}.
 }
 \description{
-Validates user entered \code{lonlat} values and checks against \code{pars}
-values.
+Validates user-entered \code{lonlat} values.
 }
 \keyword{internal}

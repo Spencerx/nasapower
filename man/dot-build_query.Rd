@@ -29,6 +29,8 @@
 \item{wind_elevation}{A validated value passed by \code{check_inputs}.}
 
 \item{wind_surface}{A validated value passed by \code{check_inputs}.}
+
+\item{time_standard}{A validated POWER time standard (\code{LST} or \code{UTC}).}
 }
 \value{
 A \code{list} object of values to be passed to a \CRANpkg{crul} object to

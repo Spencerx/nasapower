@@ -155,7 +155,9 @@ day's values will be returned, \emph{e.g.}, \code{dates = "1983-01-01"}.  When
 \section{\code{wind_surface}}{
  There are 17 surfaces that may be used for corrected
 wind-speed values using the following equation:
-\deqn{ WSC_hgt = WS_10 m\times(\frac{hgt}{WS_50m})^\alpha}{WSC_hgt = WS_10 m*(hgt/WS_50m)^\alpha }
+\deqn{WSC_{hgt} = WS_{10m} \times
+    (\frac{hgt}{WS_{50m}})^\alpha}{WSC_{hgt} = WS_{10m} *
+    (hgt/WS_{50m})^\alpha}
 Valid surface types are described here.
 
 \describe{
@@ -164,13 +166,13 @@ Valid surface types are described here.
 \item{vegtype_3}{20-m broadleaf and needleleaf trees (75\% coverage)}
 \item{vegtype_4}{17-m needleleaf-evergreen trees (75\% coverage)}
 \item{vegtype_5}{14-m needleleaf-deciduous trees (50\% coverage)}
-\item{vegtype_6}{Savanna:18-m broadleaf trees (30\%) & groundcover}
+\item{vegtype_6}{Savanna:18-m broadleaf trees (30\%) && groundcover}
 \item{vegtype_7}{0.6-m perennial groundcover (100\%)}
-\item{vegtype_8}{0.5-m broadleaf shrubs (variable \%) & groundcover}
+\item{vegtype_8}{0.5-m broadleaf shrubs (variable \%) && groundcover}
 \item{vegtype_9}{0.5-m broadleaf shrubs (10\%) with bare soil}
-\item{vegtype_10}{Tundra: 0.6-m trees/shrubs (variable \%) & groundcover}
+\item{vegtype_10}{Tundra: 0.6-m trees/shrubs (variable \%) && groundcover}
 \item{vegtype_11}{Rough bare soil}
-\item{vegtype_12}{Crop: 20-m broadleaf-deciduous trees (10\%) & wheat}
+\item{vegtype_12}{Crop: 20-m broadleaf-deciduous trees (10\%) && wheat}
 \item{vegtype_20}{Rough glacial snow/ice}
 \item{seaice}{Smooth sea ice}
 \item{openwater}{Open water}
